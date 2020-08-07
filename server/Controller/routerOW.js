@@ -1,9 +1,8 @@
 const express = require('express');
 const fetch = require("node-fetch");
 const app = express();
-
-const base = "/v1";
-
+const router = express.Router();
+ 
 // parse application/json
 app.use(express.json());
 //parsea application/x-www-form-urlencoded
@@ -11,8 +10,7 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-// .populate('usuario', 'nombre email') populate es la versión join de mongoose
-app.get(`${base}/location`, async (req, res) => {
+router.get('/location', async (req, res) => {
     let text = ""
 
     //Reemplaze por su id correspondiente ya que en desarrollo se devuelve ::1
@@ -25,7 +23,7 @@ app.get(`${base}/location`, async (req, res) => {
     res.status(200).json(text)
 });
 
-app.get(`${base}/current/:city?`, async (req, res) => {
+router.get('/current/:city?', async (req, res) => {
     let ciudad = req.params.city
     if (ciudad !== undefined) {
         await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${process.env.OPENWEATHERID}&lang=es`)
@@ -53,7 +51,7 @@ app.get(`${base}/current/:city?`, async (req, res) => {
     res.status(400)
 });
 
-app.get(`${base}/forecast/:city?`, async (req, res) => {
+router.get('/forecast/:city?', async (req, res) => {
     let ciudad = req.params.city
     if (ciudad !== undefined) {
         await fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${ciudad}&appid=${process.env.OPENWEATHERID}&lang=es`)
@@ -76,10 +74,12 @@ app.get(`${base}/forecast/:city?`, async (req, res) => {
                 .then(text => res.status(200).json(JSON.parse(text)))
                 .catch(error => res.status(500).json(JSON.parse(error)))
         }
-
     }
     res.status(400)
 });
 
+app.use("/v1", router);
+
+// .populate('usuario', 'nombre email') populate es la versión join de mongoose
 
 module.exports = app;

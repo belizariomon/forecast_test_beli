@@ -4,7 +4,7 @@ const enrutador = require('./Controller/rutas');
 const path = require('path');  
 
 require('./config');
-
+  
 const app = express();
    
 app.use(express.static(path.resolve( __dirname, '..','client', 'build')));
