@@ -1,4 +1,5 @@
 {
+  "homepage": "http://belizariomon.github.io/forecast_test_beli",
   "name": "demo",
   "version": "1.0.0",
   "description": "",
@@ -13,7 +14,9 @@
     "start": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "concurrently \"npm start --prefix client\"\"node ./bin/www\"",
-    "start2": "npm run build --prefix Client && node app.js"
+    "start2": "npm run build --prefix Client && node app.js",
+    "predeploy" : "npm run build",
+    "deploy":"gh-pages -d build"
   },
   "repository": {
     "type": "git",
