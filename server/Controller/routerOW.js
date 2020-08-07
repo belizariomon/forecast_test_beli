@@ -59,7 +59,7 @@ router.get('/forecast/:city?', async (req, res) => {
             .then(text => res.status(200).json(JSON.parse(text)))
             .catch(error => res.status(500).json(JSON.parse(error)))
     } else {
-        const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'] || (req.connection && req.connection.remoteAddress) || ''
+        const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
 
         const respIp = await fetch(`http://ip-api.com/json/${ip}`, { method: 'GET' })
             .then(res => res.text())
