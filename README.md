@@ -23,6 +23,6 @@ Backend:\
 frontend:\
 styled-components
 
-Corriendo en: https://forecastest.azurewebsites.net
+Corriendo en: 
 
 Consultas: belizariomonje@hotmail.com, respondo en el momento.
