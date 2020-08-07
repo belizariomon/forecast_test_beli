@@ -16,9 +16,11 @@ process.env.PRODUCCIONMODE => true.
 
 Packages utilizados:
 
-Backend:
-express.
-node-fetch.
+Backend:\
+-express.\
+-node-fetch.
 
-frontend:
+frontend:\
 styled-components
+
+Consultas: belizariomonje@hotmail.com, respondo en el momento.
