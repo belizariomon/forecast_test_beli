@@ -4,6 +4,6 @@ process.env.OPENWEATHERID = process.env.OPENWEATHERID || '00711a3758ab4344055644
 
 process.env.SEED = process.env.SEED || 'OtraSeed';
 
-process.env.PRODUCCIONMODE = false;
+process.env.PRODUCCIONMODE = true;
 
 process.env.IPLOCAL = "xxx.xxx.xxx.xxx";
