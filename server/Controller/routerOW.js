@@ -19,7 +19,7 @@ router.get('/location', async (req, res) => {
         .then(res => res.text())
         .then(text => { return JSON.parse(text) })
         .catch(error => res.status(500).json(JSON.parse(error)))
-    res.status(200).json(text)
+    res.status(200).json(ip)
 });
 
 router.get('/current/:city?', async (req, res) => {
