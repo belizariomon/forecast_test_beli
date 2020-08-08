@@ -10,7 +10,7 @@ process.env.IPLOCAL debe tener su ip.<==Preferentemente realizar este paso** \
 b) Configurar producción, si node efectivamente se monta como servidor: Configurar el archivo config.js de la carpeta server y editar el valor \
 process.env.PRODUCCIONMODE => true.\
 
-**!!!Actualmente el archivo se encuentra definido en modo producción, de manera que si necesitan probarlo en su host local, deberán realizar el paso a)**
+**!!!Actualmente el archivo se encuentra definido en modo producción, de manera que si necesitan probarlo en su host local, deberán realizar el paso 2.a**
 
 3) Correr el comando "node server/app" o si tienen nodemon correr el comando "nodemon server/app".
 4) Abrir en localhost:8080.
