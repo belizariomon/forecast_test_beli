@@ -13,8 +13,7 @@ app.use(express.urlencoded({
 router.get('/location', async (req, res) => {
     let text = ""
 
-    //Reemplaze por su id correspondiente ya que en desarrollo se devuelve ::1
-    const ip = process.env.PRODUCCIONMODE ? "xxx.xxx.xxx.xxx" : req.headers['x-forwarded-for'] || (req.connection && req.connection.remoteAddress) || ''
+    const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
 
     text = await fetch(`http://ip-api.com/json/${ip}`, { method: 'GET' })
         .then(res => res.text())
@@ -31,7 +30,7 @@ router.get('/current/:city?', async (req, res) => {
             .then(text => res.status(200).json(JSON.parse(text)))
             .catch(error => res.status(500).json(JSON.parse(error)))
     } else {
-        const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'] || (req.connection && req.connection.remoteAddress) || ''
+        const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
 
         const respIp = await fetch(`http://ip-api.com/json/${ip}`, { method: 'GET' })
             .then(res => res.text())
