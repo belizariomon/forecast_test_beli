@@ -13,7 +13,7 @@ app.use(express.urlencoded({
 router.get('/location', async (req, res) => {
     let text = ""
 
-    const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
+    const ip = !process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
 
     text = await fetch(`http://ip-api.com/json/${ip}`, { method: 'GET' })
         .then(res => res.text())
@@ -30,7 +30,7 @@ router.get('/current/:city?', async (req, res) => {
             .then(text => res.status(200).json(JSON.parse(text)))
             .catch(error => res.status(500).json(JSON.parse(error)))
     } else {
-        const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
+        const ip = !process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
 
         const respIp = await fetch(`http://ip-api.com/json/${ip}`, { method: 'GET' })
             .then(res => res.text())
@@ -42,7 +42,7 @@ router.get('/current/:city?', async (req, res) => {
             const ciudad = `${respIp.city},${respIp.regionName},${respIp.countryCode}`
             await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${process.env.OPENWEATHERID}&lang=es`)
                 .then(res => res.text())
-                .then(text => res.status(200).json(ip))
+                .then(text => res.status(200).json(JSON.parse(text)))
                 .catch(error => res.status(500).json(JSON.parse(error)))
         }
 
@@ -58,7 +58,7 @@ router.get('/forecast/:city?', async (req, res) => {
             .then(text => res.status(200).json(JSON.parse(text)))
             .catch(error => res.status(500).json(JSON.parse(error)))
     } else {
-        const ip = process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
+        const ip = !process.env.PRODUCCIONMODE ? process.env.IPLOCAL : req.headers['x-forwarded-for'].split(":")[0] || (req.connection && req.connection.remoteAddress) || ''
 
         const respIp = await fetch(`http://ip-api.com/json/${ip}`, { method: 'GET' })
             .then(res => res.text())
