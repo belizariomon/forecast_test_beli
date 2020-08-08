@@ -19,7 +19,7 @@ router.get('/location', async (req, res) => {
         .then(res => res.text())
         .then(text => { return JSON.parse(text) })
         .catch(error => res.status(500).json(JSON.parse(error)))
-    res.status(200).json(ip)
+    res.status(200).json(text)
 });
 
 router.get('/current/:city?', async (req, res) => {
@@ -42,7 +42,7 @@ router.get('/current/:city?', async (req, res) => {
             const ciudad = `${respIp.city},${respIp.regionName},${respIp.countryCode}`
             await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${process.env.OPENWEATHERID}&lang=es`)
                 .then(res => res.text())
-                .then(text => res.status(200).json(JSON.parse(text)))
+                .then(text => res.status(200).json(ip))
                 .catch(error => res.status(500).json(JSON.parse(error)))
         }
 
